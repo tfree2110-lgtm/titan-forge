@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Forge | Elevate Your Game</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for modern UI elements -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Tailwind Configuration for Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tfBlack: '#121212',
+                        tfDarkGray: '#1f1f1f',
+                        tfNeon: '#39ff14',
+                        tfWhite: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling and custom scrollbar */
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #39ff14; border-radius: 4px; }
+        
+        /* Toast notification animation */
+        .toast-enter {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toast-show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #39ff14;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-tfBlack text-tfWhite font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-40 bg-tfBlack/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-3xl font-black tracking-tighter text-tfWhite uppercase">TITAN <span class="text-tfNeon">FORGE</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#equipment" class="text-sm font-semibold uppercase tracking-wider hover:text-tfNeon transition-colors">Equipment</a>
+                    <a href="#apparel" class="text-sm font-semibold uppercase tracking-wider hover:text-tfNeon transition-colors">Apparel</a>
+                    <a href="#technology" class="text-sm font-semibold uppercase tracking-wider hover:text-tfNeon transition-colors">Technology</a>
+                    <a href="#mission" class="text-sm font-semibold uppercase tracking-wider hover:text-tfNeon transition-colors">Our Mission</a>
+                </div>
+
+                <!-- Cart & Profile -->
+                <div class="flex items-center space-x-6">
+                    <button class="text-gray-300 hover:text-tfNeon transition-colors">
+                        <i data-lucide="search" class="w-6 h-6"></i>
+                    </button>
+                    <button class="text-gray-300 hover:text-tfNeon transition-colors">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </button>
+                    <button onclick="toggleCart()" class="relative text-gray-300 hover:text-tfNeon transition-colors group">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-tfNeon text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center transition-all transform group-hover:scale-110">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-tfBlack pt-20">
+        <div class="absolute inset-0 z-0">
+            <!-- Background Image Placeholder using Unsplash -->
+            <div class="absolute inset-0 bg-gradient-to-t from-tfBlack via-tfBlack/60 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-48 text-center">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6 uppercase">
+                Forge Your Legacy.<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-tfNeon to-green-400">Awaken the Titan.</span>
+            </h1>
+            <p class="mt-4 max-w-2xl text-xl text-gray-300 mx-auto mb-10">
+                High-performance sports equipment engineered for athletes who refuse to settle. Find your peak.
+            </p>
+            <div class="flex justify-center gap-4 flex-col sm:flex-row items-center">
+                <a href="#equipment" class="w-full sm:w-auto bg-tfNeon text-black px-8 py-4 rounded-md font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(57,255,20,0.3)]">Shop Collection</a>
+                <a href="#technology" class="w-full sm:w-auto border-2 border-gray-600 text-white px-8 py-4 rounded-md font-bold uppercase tracking-widest hover:border-white hover:bg-white hover:text-black transition-all transform hover:-translate-y-1">View Technology</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Banner -->
+    <div class="bg-tfNeon text-black py-4 border-y border-green-400 shadow-[0_0_15px_rgba(57,255,20,0.15)] relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm font-black uppercase tracking-wider gap-4 md:gap-0">
+            <div class="flex items-center gap-2"><i data-lucide="truck" class="w-5 h-5"></i> Free Shipping Over $75</div>
+            <div class="flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5"></i> 30-Day Performance Guarantee</div>
+            <div class="flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5"></i> Pro-Grade Materials</div>
+        </div>
+    </div>
+
+    <!-- 1. EQUIPMENT SECTION -->
+    <div id="equipment" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="flex justify-between items-end mb-12 border-b border-gray-800 pb-4">
+            <div>
+                <h2 class="text-3xl font-black uppercase tracking-tight">Pro Series Equipment</h2>
+                <p class="text-gray-400 mt-2">Engineered for competitive advantage and durability.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Pro Racket', 139.99, 'Ultra-lightweight carbon fiber frame to minimize fatigue and maximize swing speed. Custom non-slip grip tape.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute top-4 left-4 bg-tfNeon text-black text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md">Best Seller</div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Pro Racket</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$139.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Ultra-lightweight carbon fiber frame to minimize fatigue and maximize swing speed. Custom non-slip grip tape.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Pro Racket', 139.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge React Med Ball', 54.99, '10lb shatter-proof, heavy-duty rubber. Tire-tread textured surface guarantees a secure grip during high-impact throws.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Forge React Med Ball</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$54.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">10lb shatter-proof, heavy-duty rubber. Tire-tread textured surface guarantees a secure grip during high-impact throws.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Forge React Med Ball', 54.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Apex Band Set', 24.99, 'Set of 5 premium latex resistance bands. Perfect for mobility work, dynamic warm-ups, and explosive resistance training.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Apex Band Set</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$24.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Set of 5 premium latex resistance bands. Perfect for mobility work, dynamic warm-ups, and explosive resistance training.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Apex Band Set', 24.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge Liquid Chalk', 14.99, 'Antibacterial liquid chalk formula. Dries in seconds, eliminates sweat, and leaves zero mess in your gym bag.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Forge Liquid Chalk</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$14.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Antibacterial liquid chalk formula. Dries in seconds, eliminates sweat, and leaves zero mess in your gym bag.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Forge Liquid Chalk', 14.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. APPAREL SECTION -->
+    <div id="apparel" class="bg-tfBlack py-24 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12 border-b border-gray-800 pb-4">
+                <div>
+                    <h2 class="text-3xl font-black uppercase tracking-tight">Performance Apparel</h2>
+                    <p class="text-gray-400 mt-2">Second-skin fabrics designed to breathe, stretch, and endure.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Apparel 1 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Compression Tee', 34.99, 'Moisture-wicking, anti-odor fabric that acts as a second skin. Provides targeted compression to active muscle groups.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Compression Tee</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$34.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Moisture-wicking, anti-odor fabric that acts as a second skin. Provides targeted compression to active muscle groups.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Compression Tee', 34.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Apparel 2 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Apex Shorts', 45.00, 'Ultra-lightweight 4-way stretch material with laser-cut ventilation. Features a secure zip-pocket for valuables.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Apex Shorts</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$45.00</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Ultra-lightweight 4-way stretch material with laser-cut ventilation. Features a secure zip-pocket for valuables.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Apex Shorts', 45.00)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Apparel 3 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge Isolation Hoodie', 65.00, 'Thermal regulation design for pre- and post-workout comfort. Features an oversized hood to tune out distractions.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Forge Isolation Hoodie</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$65.00</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Thermal regulation design for pre- and post-workout comfort. Features an oversized hood to tune out distractions.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Forge Isolation Hoodie', 65.00)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Apparel 4 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan React Grip Socks', 18.00, 'Anti-slip silicone traction pads on the sole for explosive changes of direction inside the shoe. Prevents blistering.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan React Grip Socks</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$18.00</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Anti-slip silicone traction pads on the sole for explosive changes of direction inside the shoe. Prevents blistering.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan React Grip Socks', 18.00)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. TECHNOLOGY SECTION -->
+    <div id="technology" class="bg-tfDarkGray py-24 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12 border-b border-gray-800 pb-4">
+                <div>
+                    <h2 class="text-3xl font-black uppercase tracking-tight">Smart Technology</h2>
+                    <p class="text-gray-400 mt-2">Data-driven performance tracking and active recovery tools.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Tech 1 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Smart Jump Rope', 39.99, 'LED-integrated handles track jumps, speed, and calories. Syncs seamlessly with the Titan Forge mobile app.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute top-4 left-4 bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md">New Tech</div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Smart Jump Rope</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$39.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">LED-integrated handles track jumps, speed, and calories. Syncs seamlessly with the Titan Forge mobile app.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Smart Jump Rope', 39.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tech 2 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Pulse Monitor', 129.99, 'Clinical-grade heart rate precision. Tracks HRV, recovery times, and oxygen saturation during peak output.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Pulse Monitor</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$129.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Clinical-grade heart rate precision. Tracks HRV, recovery times, and oxygen saturation during peak output.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Pulse Monitor', 129.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tech 3 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge Recover Pro', 199.99, 'Deep-tissue percussive therapy with 5 speed settings and a whisper-quiet motor. Accelerates muscle recovery.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Forge Recover Pro</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$199.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Deep-tissue percussive therapy with 5 speed settings and a whisper-quiet motor. Accelerates muscle recovery.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Forge Recover Pro', 199.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tech 4 -->
+            <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Smart Scale', 79.99, 'Measures body fat percentage, muscle mass, and bone density. WiFi-enabled for instant syncing to the Titan Forge dashboard.')">
+                <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-black uppercase tracking-wide leading-tight group-hover:text-tfNeon transition-colors duration-300">Titan Smart Scale</h3>
+                        <span class="text-lg font-black text-tfNeon ml-2">$79.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">Measures body fat percentage, muscle mass, and bone density. WiFi-enabled for instant syncing to the Titan Forge dashboard.</p>
+                    <button onclick="event.stopPropagation(); addToCart('Titan Smart Scale', 79.99)" class="w-full bg-tfBlack border border-gray-700 text-white py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black hover:border-tfNeon transition-all duration-300 flex justify-center items-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. OUR MISSION SECTION -->
+    <div id="mission" class="relative bg-tfBlack py-32 border-t border-gray-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-block bg-tfDarkGray border border-gray-800 px-4 py-2 rounded-full mb-6 text-sm font-bold tracking-widest uppercase text-tfNeon">The Philosophy</div>
+            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-8">Your Potential is Not <span class="text-transparent bg-clip-text bg-gradient-to-r from-tfNeon to-green-400">Negotiable.</span></h2>
+            <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                At <strong>Titan Forge</strong>, we believe that the pursuit of perfection is a daily practice. We don't build equipment for the casual hobbyist; we engineer high-performance tools for athletes who demand the absolute peak of their capabilities.
+            </p>
+            <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                Every fiber, every sensor, and every design choice is meticulously crafted to eliminate friction between you and your goals. Whether you are recovering from an injury or training for a championship, our mission is to provide the arsenal you need to <strong>Score a Perfect 10</strong>.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-10 mt-4">
+                <div>
+                    <h4 class="text-2xl font-black text-white mb-2">01. Innovate</h4>
+                    <p class="text-sm text-gray-500 max-w-xs mx-auto">Merging cutting-edge sports science with raw athletic necessity.</p>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-black text-white mb-2">02. Endure</h4>
+                    <p class="text-sm text-gray-500 max-w-xs mx-auto">Building products that outlast your toughest training cycles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter / App Promo -->
+    <div class="border-t border-b border-gray-800 bg-tfDarkGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="max-w-xl">
+                <h2 class="text-3xl font-black uppercase tracking-tight mb-4">Connect to the Titan Forge App</h2>
+                <p class="text-gray-400 mb-8">Unlock your full potential. Track your metrics with our smart equipment, get exclusive workout routines, and early access to new product drops.</p>
+                <form class="flex w-full" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                    <input type="email" placeholder="ENTER YOUR EMAIL" class="flex-grow bg-tfBlack border border-gray-700 px-4 py-3 focus:outline-none focus:border-tfNeon text-white" required>
+                    <button type="submit" class="bg-tfNeon text-black px-6 py-3 font-bold uppercase tracking-wider hover:bg-white transition-colors">Join</button>
+                </form>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="bg-tfBlack p-8 border border-gray-800 rounded-lg">
+                    <i data-lucide="activity" class="w-10 h-10 text-tfNeon mx-auto mb-4"></i>
+                    <h4 class="font-bold uppercase tracking-wider">Live Metrics</h4>
+                </div>
+                <div class="bg-tfBlack p-8 border border-gray-800 rounded-lg">
+                    <i data-lucide="smartphone" class="w-10 h-10 text-tfNeon mx-auto mb-4"></i>
+                    <h4 class="font-bold uppercase tracking-wider">App Sync</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-tfBlack py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <span class="text-3xl font-black tracking-tighter text-tfWhite uppercase block mb-4">TITAN <span class="text-tfNeon">FORGE</span></span>
+                <p class="text-gray-400 text-sm max-w-sm">Elevate Your Game. Score a Perfect 10. We build high-performance sporting goods for those who never stop pushing their limits.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-4">Shop</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#equipment" class="hover:text-tfNeon transition-colors">Equipment</a></li>
+                    <li><a href="#apparel" class="hover:text-tfNeon transition-colors">Apparel</a></li>
+                    <li><a href="#technology" class="hover:text-tfNeon transition-colors">Smart Tech</a></li>
+                    <li><a href="#" class="hover:text-tfNeon transition-colors">Gift Cards</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-4">Support</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-tfNeon transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-tfNeon transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-tfNeon transition-colors">Warranty</a></li>
+                    <li><a href="#" class="hover:text-tfNeon transition-colors">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+            <p>&copy; 2026 Titan Forge Sporting Goods. All rights reserved.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART SIDEBAR UI -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/70 z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCart()"></div>
+
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-tfDarkGray border-l border-gray-800 z-50 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center p-6 border-b border-gray-800">
+            <h2 class="text-2xl font-black uppercase tracking-wider text-white">Your Cart</h2>
+            <button onclick="toggleCart()" class="text-gray-400 hover:text-tfNeon transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div id="cart-items" class="flex-grow p-6 overflow-y-auto flex flex-col gap-4">
+            <div class="text-gray-500 text-center py-10 font-medium">Your cart is currently empty.</div>
+        </div>
+        
+        <div class="p-6 border-t border-gray-800 bg-tfBlack">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-400 font-bold uppercase tracking-wider text-sm">Subtotal</span>
+                <span id="cart-subtotal" class="text-3xl font-black text-tfNeon">$0.00</span>
+            </div>
+            <button onclick="openCheckoutModal()" class="w-full bg-tfNeon text-black py-4 rounded-md font-black uppercase tracking-widest hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed" id="checkout-btn" disabled>Secure Checkout</button>
+        </div>
+    </div>
+
+    <!-- QUICK VIEW MODAL -->
+    <div id="quick-view-overlay" class="fixed inset-0 bg-black/80 z-[80] hidden items-center justify-center p-4 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeQuickView(event)">
+        <div id="quick-view-modal" class="bg-tfDarkGray border border-gray-800 rounded-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row relative transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(0,0,0,0.8)]" onclick="event.stopPropagation()">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-gray-400 hover:text-white z-20 bg-black/50 p-2 rounded-full backdrop-blur-md transition-colors hover:bg-tfNeon hover:text-black">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <!-- Left Side Placeholder Image -->
+            <div class="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-900 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-800 group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 to-transparent z-0"></div>
+                <div class="text-gray-800 opacity-20 relative z-10 flex flex-col items-center justify-center transform group-hover:scale-110 transition-transform duration-700">
+                    <span class="text-7xl font-black uppercase tracking-tighter">TF</span>
+                </div>
+            </div>
+            
+            <!-- Right Side Details -->
+            <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative bg-tfDarkGray">
+                <div class="inline-block bg-tfBlack border border-gray-800 px-3 py-1 rounded-sm mb-4 text-xs font-bold tracking-widest uppercase text-tfNeon w-max">Quick View</div>
+                <h2 id="qv-title" class="text-3xl font-black uppercase tracking-tight mb-2 text-white leading-none"></h2>
+                <div id="qv-price" class="text-2xl font-black text-tfNeon mb-6"></div>
+                <p id="qv-desc" class="text-gray-400 mb-8 leading-relaxed text-sm"></p>
+
+                <div class="mb-8">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3 border-b border-gray-800 pb-2">Pro-Grade Specs</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-tfNeon"></i> <span>30-Day Performance Guarantee</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="zap" class="w-4 h-4 text-tfNeon"></i> <span>Engineered for Peak Output</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="truck" class="w-4 h-4 text-tfNeon"></i> <span>Ships within 24 Hours</span></li>
+                    </ul>
+                </div>
+
+                <button id="qv-add-btn" class="w-full bg-tfNeon text-black py-4 rounded-md font-black uppercase tracking-widest hover:bg-white transition-colors flex justify-center items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i> Add To Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT FULLSCREEN MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 bg-tfBlack z-[60] hidden flex-col overflow-y-auto">
+        <!-- Minimal Nav for Checkout -->
+        <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-tfDarkGray sticky top-0 z-10">
+            <span class="text-2xl font-black tracking-tighter text-tfWhite uppercase">TITAN <span class="text-tfNeon">FORGE</span></span>
+            <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-bold uppercase">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Store
+            </button>
+        </div>
+
+        <div class="flex flex-col lg:flex-row max-w-7xl mx-auto w-full flex-grow">
+            <!-- Left Side: Forms -->
+            <div class="w-full lg:w-3/5 p-6 lg:p-12 lg:border-r border-gray-800">
+                
+                <!-- Step 1: Shipping -->
+                <div id="checkout-step-1" class="block">
+                    <h2 class="text-2xl font-black uppercase mb-6 flex items-center gap-3">
+                        <span class="bg-tfNeon text-black w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span> 
+                        Shipping Details
+                    </h2>
+                    <form onsubmit="event.preventDefault(); nextCheckoutStep(2);" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">First Name</label>
+                                <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Last Name</label>
+                                <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</label>
+                            <input type="email" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Street Address</label>
+                            <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">City</label>
+                                <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">ZIP Code</label>
+                                <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-tfNeon text-black py-4 rounded-md font-black uppercase tracking-widest hover:bg-white transition-colors mt-8">Continue to Payment</button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div id="checkout-step-2" class="hidden">
+                    <h2 class="text-2xl font-black uppercase mb-6 flex items-center gap-3">
+                        <span class="bg-tfNeon text-black w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span> 
+                        Payment Information
+                    </h2>
+                    <div class="bg-tfBlack border border-gray-700 rounded-md p-4 mb-6 flex gap-2 items-center text-sm text-gray-400">
+                        <i data-lucide="lock" class="w-4 h-4 text-tfNeon"></i> This is a secure, encrypted transaction.
+                    </div>
+                    <form id="payment-form" onsubmit="submitOrder(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Cardholder Name</label>
+                            <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon" placeholder="JOHN DOE">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Card Number</label>
+                            <input type="text" required pattern="[0-9]{16}" class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon" placeholder="0000 0000 0000 0000" maxlength="16">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Expiry Date</label>
+                                <input type="text" required placeholder="MM/YY" class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon" maxlength="5">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">CVC</label>
+                                <input type="text" required class="w-full bg-tfBlack border border-gray-700 text-white p-3 rounded-md focus:outline-none focus:border-tfNeon" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                        <div class="flex gap-4 mt-8">
+                            <button type="button" onclick="nextCheckoutStep(1)" class="w-1/3 border border-gray-700 text-white py-4 rounded-md font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">Back</button>
+                            <button type="submit" id="submit-order-btn" class="w-2/3 bg-tfNeon text-black py-4 rounded-md font-black uppercase tracking-widest hover:bg-white transition-colors flex justify-center items-center gap-2">
+                                Place Order
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div id="checkout-step-3" class="hidden text-center py-12">
+                    <div class="w-24 h-24 bg-tfNeon/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="check" class="w-12 h-12 text-tfNeon"></i>
+                    </div>
+                    <h2 class="text-4xl font-black uppercase mb-4">Order Confirmed</h2>
+                    <p class="text-gray-400 mb-8 max-w-md mx-auto">Your Titan Forge gear is being prepped for deployment. You will receive a tracking email shortly.</p>
+                    <div class="bg-tfDarkGray border border-gray-800 rounded-md p-6 max-w-md mx-auto mb-8 text-left">
+                        <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Order Number</div>
+                        <div class="text-xl font-black text-white mb-4">#TF-9834-XYZ</div>
+                        <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Estimated Delivery</div>
+                        <div class="text-white font-medium">3-5 Business Days</div>
+                    </div>
+                    <button onclick="closeCheckoutModal()" class="border border-tfNeon text-tfNeon px-8 py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black transition-colors">Return to Store</button>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Order Summary -->
+            <div class="w-full lg:w-2/5 p-6 lg:p-12 bg-tfDarkGray">
+                <h3 class="text-xl font-black uppercase tracking-wider mb-6 pb-4 border-b border-gray-800">Order Summary</h3>
+                <div id="checkout-summary-items" class="space-y-4 mb-6">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="border-t border-gray-800 pt-4 space-y-2 text-sm text-gray-400">
+                    <div class="flex justify-between">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal" class="text-white font-bold">$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping</span>
+                        <span class="text-tfNeon font-bold">FREE</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Estimated Tax</span>
+                        <span id="checkout-tax" class="text-white font-bold">$0.00</span>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-4 pt-4 flex justify-between items-center">
+                    <span class="text-lg font-bold uppercase tracking-wider">Total</span>
+                    <span id="checkout-total" class="text-3xl font-black text-tfNeon">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-tfNeon text-black px-6 py-4 font-bold rounded-lg shadow-lg flex items-center gap-3 toast-enter pointer-events-none z-[70]">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span id="toast-message">Added to cart</span>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Application State
+        let cart = [];
+
+        // Toggle Cart Sidebar
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        }
+
+        // Add Product to Cart
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            
+            updateCartUI();
+            
+            const counter = document.getElementById('cart-count');
+            counter.classList.add('scale-125');
+            setTimeout(() => counter.classList.remove('scale-125'), 200);
+
+            showToast(`${name} added to cart!`);
+        }
+
+        // Adjust Item Quantity (Increase/Decrease/Remove)
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            updateCartUI();
+        }
+
+        // Render HTML for the Sidebar Cart
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartCount = document.getElementById('cart-count');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            cartItemsContainer.innerHTML = ''; 
+            let total = 0;
+            let itemCount = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-center py-12">
+                        <div class="w-20 h-20 bg-tfBlack border border-gray-800 rounded-full flex items-center justify-center mb-6 text-gray-600 shadow-inner">
+                            <i data-lucide="shopping-cart" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="text-white font-black uppercase tracking-wider mb-2 text-lg">Your Cart is Empty</h3>
+                        <p class="text-gray-500 text-sm mb-8 px-4">Looks like you haven't added any gear to your loadout yet.</p>
+                        <button onclick="toggleCart()" class="border border-tfNeon text-tfNeon px-8 py-3 rounded-md font-bold uppercase tracking-widest hover:bg-tfNeon hover:text-black transition-all">
+                            Continue Shopping
+                        </button>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    itemCount += item.quantity;
+                    
+                    cartItemsContainer.innerHTML += `
+                        <div class="flex justify-between items-center bg-tfBlack p-4 rounded-lg border border-gray-800 shadow-sm">
+                            <div class="flex-grow pr-4">
+                                <h4 class="font-bold text-white text-sm mb-1 uppercase tracking-wide">${item.name}</h4>
+                                <div class="text-tfNeon font-black text-sm">$${item.price.toFixed(2)}</div>
+                            </div>
+                            <div class="flex items-center gap-3 bg-tfDarkGray border border-gray-700 rounded-md px-2 py-1 flex-shrink-0">
+                                <button onclick="updateQuantity(${index}, -1)" class="text-gray-400 hover:text-white transition-colors p-1">
+                                    <i data-lucide="minus" class="w-4 h-4"></i>
+                                </button>
+                                <span class="font-bold text-sm w-4 text-center text-white">${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)" class="text-gray-400 hover:text-white transition-colors p-1">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            cartSubtotal.innerText = '$' + total.toFixed(2);
+            cartCount.innerText = itemCount;
+            
+            lucide.createIcons(); 
+        }
+
+        // Display Toast popup
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = message;
+            toast.classList.add('toast-show');
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+            }, 3000);
+        }
+
+        // CHECKOUT LOGIC
+        function openCheckoutModal() {
+            if (cart.length === 0) return;
+            
+            // Close the sidebar cart
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+            document.getElementById('cart-overlay').classList.add('opacity-0', 'pointer-events-none');
+            
+            // Populate Order Summary
+            populateCheckoutSummary();
+
+            // Reset checkout steps
+            nextCheckoutStep(1);
+
+            // Show full-screen modal
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            document.getElementById('checkout-modal').classList.add('flex');
+            
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('flex');
+            document.body.style.overflow = '';
+            
+            // Reset forms
+            document.querySelector('#checkout-step-1 form').reset();
+            document.getElementById('payment-form').reset();
+            
+            // If checking out was successful and cart is empty, make sure UI is updated
+            updateCartUI();
+        }
+
+        function populateCheckoutSummary() {
+            const summaryContainer = document.getElementById('checkout-summary-items');
+            summaryContainer.innerHTML = '';
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                summaryContainer.innerHTML += `
+                    <div class="flex justify-between items-center text-sm">
+                        <div class="text-gray-300 font-medium">
+                            <span class="text-gray-500 mr-2">${item.quantity}x</span> ${item.name}
+                        </div>
+                        <div class="text-white font-bold">$${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+            
+            const tax = subtotal * 0.08; // 8% mock tax
+            const total = subtotal + tax;
+            
+            document.getElementById('checkout-subtotal').innerText = '$' + subtotal.toFixed(2);
+            document.getElementById('checkout-tax').innerText = '$' + tax.toFixed(2);
+            document.getElementById('checkout-total').innerText = '$' + total.toFixed(2);
+        }
+
+        function nextCheckoutStep(stepNumber) {
+            document.getElementById('checkout-step-1').classList.add('hidden');
+            document.getElementById('checkout-step-2').classList.add('hidden');
+            document.getElementById('checkout-step-3').classList.add('hidden');
+            
+            document.getElementById(`checkout-step-${stepNumber}`).classList.remove('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault(); // Prevent actual form submission
+            
+            const btn = document.getElementById('submit-order-btn');
+            
+            // Show loading state
+            btn.innerHTML = '<div class="loader"></div> Processing...';
+            btn.disabled = true;
+            
+            // Simulate network request delay
+            setTimeout(() => {
+                // Clear the cart
+                cart = [];
+                
+                // Show success screen
+                nextCheckoutStep(3);
+                
+                // Reset button for future
+                btn.innerHTML = 'Place Order';
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        // QUICK VIEW MODAL LOGIC
+        function openQuickView(title, price, desc) {
+            document.getElementById('qv-title').innerText = title;
+            document.getElementById('qv-price').innerText = '$' + price.toFixed(2);
+            document.getElementById('qv-desc').innerText = desc;
+
+            const addBtn = document.getElementById('qv-add-btn');
+            addBtn.onclick = function() {
+                addToCart(title, price);
+                closeQuickView();
+            };
+
+            const modalOverlay = document.getElementById('quick-view-overlay');
+            const modalContent = document.getElementById('quick-view-modal');
+
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.classList.add('flex');
+            
+            setTimeout(() => {
+                modalOverlay.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            
+            // Re-render icons since the modal relies on them
+            lucide.createIcons();
+        }
+
+        function closeQuickView(event) {
+            if (event && event.target !== document.getElementById('quick-view-overlay')) {
+                return;
+            }
+
+            const modalOverlay = document.getElementById('quick-view-overlay');
+            const modalContent = document.getElementById('quick-view-modal');
+
+            modalOverlay.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+
+            setTimeout(() => {
+                modalOverlay.classList.remove('flex');
+                modalOverlay.classList.add('hidden');
+                
+                if (document.getElementById('checkout-modal').classList.contains('hidden') && 
+                    document.getElementById('cart-sidebar').classList.contains('translate-x-full')) {
+                    document.body.style.overflow = '';
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>
