@@ -16,9 +16,12 @@
                 extend: {
                     colors: {
                         tfBlack: '#121212',
-                        tfDarkGray: '#1f1f1f',
+                        tfDarkGray: '#121212',
                         tfNeon: '#39ff14',
                         tfWhite: '#ffffff',
+                        gray: {
+                            900: '#121212'
+                        }
                     },
                     fontFamily: {
                         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
@@ -100,7 +103,7 @@
     <div class="relative bg-tfBlack pt-20">
         <div class="absolute inset-0 z-0">
             <!-- Background Image -->
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" alt="Gym Background" class="absolute inset-0 w-full h-full object-cover opacity-40">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" alt="Gym Background" class="absolute inset-0 w-full h-full object-cover opacity-40 grayscale">
             <div class="absolute inset-0 bg-gradient-to-t from-tfBlack via-tfBlack/80 to-transparent"></div>
         </div>
         
@@ -141,7 +144,7 @@
             <!-- Product 1 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Pro Racket', 139.99, 'Ultra-lightweight carbon fiber frame to minimize fatigue and maximize swing speed. Custom non-slip grip tape.', 'racket.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="racket.jpg" alt="Titan Pro Racket" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="racket.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+racket.jpg'" alt="Titan Pro Racket" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                     <div class="absolute top-4 left-4 bg-tfNeon text-black text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md z-20">Best Seller</div>
                 </div>
@@ -160,7 +163,7 @@
             <!-- Product 2 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge React Med Ball', 54.99, '10lb shatter-proof, heavy-duty rubber. Tire-tread textured surface guarantees a secure grip during high-impact throws.', 'med-ball.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="med-ball.jpg" alt="Forge React Med Ball" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="med-ball.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+med-ball.jpg'" alt="Forge React Med Ball" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -178,7 +181,7 @@
             <!-- Product 3 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Apex Band Set', 24.99, 'Set of 5 premium latex resistance bands. Perfect for mobility work, dynamic warm-ups, and explosive resistance training.', 'band-set.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="band-set.jpg" alt="Titan Apex Band Set" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="band-set.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+band-set.jpg'" alt="Titan Apex Band Set" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -196,7 +199,7 @@
             <!-- Product 4 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge Liquid Chalk', 14.99, 'Antibacterial liquid chalk formula. Dries in seconds, eliminates sweat, and leaves zero mess in your gym bag.', 'liquid-chalk.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="liquid-chalk.jpg" alt="Forge Liquid Chalk" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="liquid-chalk.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+liquid-chalk.jpg'" alt="Forge Liquid Chalk" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -227,7 +230,7 @@
             <!-- Apparel 1 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Compression Tee', 34.99, 'Moisture-wicking, anti-odor fabric that acts as a second skin. Provides targeted compression to active muscle groups.', 'compressed-tee.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="compressed-tee.jpg" alt="Titan Compression Tee" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="compressed-tee.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+compressed-tee.jpg'" alt="Titan Compression Tee" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -245,7 +248,7 @@
             <!-- Apparel 2 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Apex Shorts', 45.00, 'Ultra-lightweight 4-way stretch material with laser-cut ventilation. Features a secure zip-pocket for valuables.', 'shorts.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="shorts.jpg" alt="Titan Apex Shorts" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="shorts.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+shorts.jpg'" alt="Titan Apex Shorts" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -263,7 +266,7 @@
             <!-- Apparel 3 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Forge Isolation Hoodie', 65.00, 'Thermal regulation design for pre- and post-workout comfort. Features an oversized hood to tune out distractions.', 'hoodie.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="hoodie.jpg" alt="Forge Isolation Hoodie" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="hoodie.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+hoodie.jpg'" alt="Forge Isolation Hoodie" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -281,7 +284,7 @@
             <!-- Apparel 4 -->
             <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan React Grip Socks', 18.00, 'Anti-slip silicone traction pads on the sole for explosive changes of direction inside the shoe. Prevents blistering.', 'socks.jpg')">
                 <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                    <img src="socks.jpg" alt="Titan React Grip Socks" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                    <img src="socks.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+socks.jpg'" alt="Titan React Grip Socks" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -313,7 +316,7 @@
                 <!-- Tech 1 -->
                 <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Smart Jump Rope', 39.99, 'LED-integrated handles track jumps, speed, and calories. Syncs seamlessly with the Titan Forge mobile app.', 'jump-rope.jpg')">
                     <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="jump-rope.jpg" alt="Smart Jump Rope" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                        <img src="jump-rope.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+jump-rope.jpg'" alt="Smart Jump Rope" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                         <div class="absolute top-4 left-4 bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm shadow-md z-20">New Tech</div>
                     </div>
@@ -332,7 +335,7 @@
                 <!-- Tech 2 -->
                 <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Pulse Monitor', 129.99, 'Clinical-grade heart rate precision. Tracks HRV, recovery times, and oxygen saturation during peak output.', 'monitor.jpg')">
                     <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="monitor.jpg" alt="Titan Pulse Monitor" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                        <img src="monitor.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+monitor.jpg'" alt="Titan Pulse Monitor" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -350,7 +353,7 @@
                 <!-- Tech 3 -->
                 <div class="group bg-tfBlack border border-gray-800 rounded-2xl overflow-hidden hover:border-tfNeon hover:shadow-[0_0_30px_rgba(57,255,20,0.1)] transition-all duration-300 transform-gpu flex flex-col cursor-pointer" onclick="openQuickView('Titan Smart Scale', 79.99, 'Measures body fat percentage, muscle mass, and bone density. WiFi-enabled for instant syncing to the Titan Forge dashboard.', 'smart-scale.jpg')">
                     <div class="relative h-72 overflow-hidden bg-gray-900 flex items-center justify-center">
-                        <img src="smart-scale.jpg" alt="Titan Smart Scale" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
+                        <img src="smart-scale.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x800/121212/39ff14?text=Missing+smart-scale.jpg'" alt="Titan Smart Scale" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-tfBlack/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow bg-tfDarkGray">
@@ -886,6 +889,13 @@
             
             if(imgUrl) {
                 imgElement.src = imgUrl;
+                
+                // Set up the exact same diagnostic fallback logic for the quickview!
+                imgElement.onerror = function() {
+                    this.onerror = null;
+                    this.src = `https://placehold.co/800x800/121212/39ff14?text=Missing+${imgUrl}`;
+                };
+
                 imgElement.classList.remove('hidden');
                 placeholderElement.classList.add('hidden');
             } else {
